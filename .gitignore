@@ -2,3 +2,5 @@ user/dist
 user/node_modules
 authentication/dist
 authentication/node_modules
+quote/dist
+quote/node_modules

@@ -1,26 +1,14 @@
 import { CanActivate, ExecutionContext, Inject, Logger } from "@nestjs/common";
 import { timeout } from 'rxjs/operators';
 import { ClientProxy } from "@nestjs/microservices";
-import { Reflector } from "@nestjs/core";
-import { IS_PUBLIC_KEY } from "src/shared/decorators/allow-anon.decorator";
 
 export class AuthGuard implements CanActivate {
     constructor(
         @Inject('AUTH_CLIENT')
         private readonly client: ClientProxy,
-        private reflector: Reflector
     ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
-            context.getHandler(),
-            context.getClass(),
-        ]);
-
-        if (isPublic) {
-            return true;
-        }
-
         const req = context.switchToHttp().getRequest();
 
         try {

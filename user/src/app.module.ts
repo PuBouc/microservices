@@ -4,7 +4,7 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://172.17.0.7:27017/users', { useNewUrlParser: true }),
+    MongooseModule.forRoot('mongodb://172.17.0.6:27017/users', { useNewUrlParser: true }),
     UserModule,
   ],
 })
