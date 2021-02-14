@@ -1,4 +1,4 @@
-import { Get } from '@nestjs/common';
+import { BadRequestException, Get } from '@nestjs/common';
 import { Logger } from '@nestjs/common';
 import { Query } from '@nestjs/common';
 import { Post } from '@nestjs/common';
@@ -19,6 +19,10 @@ export class QuoteController {
         @Query('price', new ValidatePrice()) price: number,
         @Query('age', new ValidateAge()) age: number
     ) {
+        if (car === 'PORSCHE' && age < 25) {
+            throw new BadRequestException('Risk too high');
+        }
+
         const quotes = await this.quoteService.getQuotes(car);
 
         let calculatedQuotes = [];
